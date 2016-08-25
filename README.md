@@ -13,15 +13,15 @@ Currently only snapshot version is available
 ### Snapshot
 
 ```
- repositories {
-        maven {
-            url "https://oss.sonatype.org/content/repositories/snapshots"
-        }
+repositories {
+    maven {
+        url "https://oss.sonatype.org/content/repositories/snapshots"
     }
+}
 
-    dependencies {
-        compile 'com.8thlab:trackersdk:0.0.1-SNAPSHOT@aar'
-    }
+dependencies {
+    compile 'com.8thlab:trackersdk:0.0.1-SNAPSHOT@aar'
+}
 ```
 
 ## Initialization
