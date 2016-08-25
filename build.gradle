@@ -126,7 +126,7 @@ uploadArchives {
                     developer {
                         id 'riomus'
                         name 'Roman Bartusiak'
-                        email 'riomus@8thlab.com'
+                        email 'r.bartusiak@8thlab.com'
                     }
                 }
             }
