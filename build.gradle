@@ -12,6 +12,9 @@ buildscript {
 
 group = 'com.8thlab'
 ext.packaging = 'aar'
+version=getVersionName()
+
+
 
 apply plugin: 'com.android.library'
 
@@ -33,13 +36,6 @@ android {
         }
     }
 
-    signingConfigs {
-        release {
-            storeFile file(RELEASE_STORE_FILE)
-            storePassword RELEASE_STORE_PASSWORD
-            keyAlias RELEASE_KEY_ALIAS
-            keyPassword RELEASE_KEY_PASSWORD
-        }
 }
 
 repositories {
@@ -52,8 +48,45 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.2.0'
 }
 
+def isReleaseBuild() {
+    return version.contains("SNAPSHOT") == false
+}
+
+def getSonatypeUsername(){
+    return System.getenv().getOrDefault("sonatypeUsername",ossSonatypeUsername)
+}
+
+def getVersionName(){
+    return System.getenv().getOrDefault("version",VERSION_NAME)
+}
+
+def getSonatypePassword(){
+    return System.getenv().getOrDefault("sonatypePassword",ossSonatypePassword)
+}
+
 signing {
+    required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
     sign configurations.archives
+}
+
+task androidJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath +=    project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+    classifier = 'javadoc'
+    from androidJavadocs.destinationDir
+}
+
+task androidSourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+}
+
+artifacts {
+    archives androidSourcesJar
+    archives androidJavadocsJar
 }
 
 uploadArchives {
@@ -62,11 +95,11 @@ uploadArchives {
             beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
             repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: sonatypeUsername, password: sonatypePassword)
+                authentication(userName: getSonatypeUsername(), password: getSonatypePassword())
             }
 
             snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                authentication(userName: sonatypeUsername, password: sonatypePassword)
+                authentication(userName: getSonatypeUsername(), password: getSonatypePassword())
             }
 
             pom.project {

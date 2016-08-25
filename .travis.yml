@@ -1,12 +1,15 @@
 language: android
 cache:
   directories:
-  - .autoconf
-  - $HOME/.m2
+  - ".autoconf"
+  - "$HOME/.m2"
 android:
   components:
-    - build-tools-24.0.2
-    - android-24
-
+  - build-tools-24.0.2
+  - android-24
 script:
-   - ./gradlew build
+- "./gradlew clean build uploadArchives"
+env:
+  global:
+  - secure: ktfLEH4yd8/EYiIo2CcuR4TOaWOt3L0ffuFupwvADzuxeR9ElzKN9UU8dYRa/8I0lTPkk0ltHjvLb7KPPSsg1yoXx4xtHYkTQ8P/KFbx5EimFNiDo6dful8ccTIcHyb7Oj+vFJA0A97EWZ3UitqEOMw7lxr7LRKQuVPMJbdQ353FgQFcItre8rL9NP8L1dY1t/7bhhxl9qR2liq/pK/6hC2MHWdBSa0nuQakrmqXJYQABYpnPDlJ8ERwxlFETSbfRO9yVNlt0JsEtWPuSqtwmGC0ntvC8Yt7mf3nKl0fZdP/xk8NK/GvHW/I8CXMCx5xGMy/d9mAX6vNn0NezXvKXYIRiw27faJwk8H76GBoS97+ei1MQOi2F1BHcK+60F24ZBeSLkxDCNZRFfUyTSjvM4KCfLP5BoAv50abMQQQ430Zie9LfxGU7mQ4FWwZqUXiEQecmHRS94i/pCZTeknvtCQEKlx0fHlP+j8cCbBT7+T6DvjY6swiZJArKGdlg2I1QwDTh8zl/89Ll2ym/95sLYl86HuwGTFTkY+VwhwKhp5/HBfkpWq0fBk4FAC8i7FGLTGueHBgD8I2qsqBlEkTBmyY5ocDdun2fcmhY1HodBYwR8CEX+jKLzpLA5nvm1OjsBGGKuMFRra1fmmE+QiWkAleCKSm6Wsg2M61RfH8eW4=
+  - secure: iVLgi+JRyMyIuKHH8wh6BS8RICDy+pTPQ8coVuCyBHChDhXkr5DM/0VUXAkPMKdbCUgYOVpTTLPj2YZ7ivkfhP9HKWpeMxZBI+GJ8OCsqT7xIVGqgNMGMWa4vJ7uMCVfzxq9y9TrkUQOE/MVOXUdm3GgM2wrzFrHosfaMTFjz9269pJo/eBJ+wcgr+R3JpPpf8KWPIzTFkdM6RCEjRErYHs6FP2T8Zp8zwB3OODvWSiXMGr1SDEzn73/l7ZE+UwimOethsP+fugiOSSJ079A+QsynYc/jc4k9avlMgAYdpsH287zjk+Ctj0H0XaDlotklnkSBOA1ZD0oCsNk7RHwHwLQwlNQHFojYiSLQU7ySJInGB4WzsWCZrVSpJjmhXhA4aH94DfnQfMO3RmdCxqUpQ3U3jRIvopwdcxkv6UqopIPCvS+3EebjeX7clp389eTKUQJbVZoSX6cDMYalJVhOKqC4BuBBz5xFwRQK45FIb8Y5iKD4k5gxBOWKM20OGYgkOpfDCBODrJ92lccu/MwtjhJQKuFBWy9zsDuD1JpAetYEiHIozX/8smTmiDpemJb9gRR9+zHGcpTRl9WnTOat1Rhf4GvqCcZ5VgDWO5iuGIeF2Wbrq5hUsDucG2OlB0GQVMeWrSdKq6nFstVWA68P/UnE1YfoV9vLkpEQOJ4Qng=
