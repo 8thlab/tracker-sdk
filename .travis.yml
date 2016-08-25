@@ -11,7 +11,7 @@ android:
   - android-23
   - extra
 script:
-- "./gradlew clean build uploadArchives  --debug"
+- "./gradlew clean build uploadArchives"
 
 after_script:
 - "cat /home/travis/build/8thlab/tracker-sdk-android/build/outputs/lint-results-debug.xml"
