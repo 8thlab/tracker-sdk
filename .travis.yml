@@ -1,21 +1,29 @@
 language: android
 jdk:
       - oraclejdk8
+
 cache:
   directories:
   - ".autoconf"
   - "$HOME/.m2"
+
 android:
   components:
   - build-tools-23.0.1
   - android-23
   - platform-tools
   - extra
+
 script:
 - "./gradlew clean build uploadArchives"
-
 after_script:
 - "cat /home/travis/build/8thlab/tracker-sdk-android/build/outputs/lint-results-debug.xml"
+
+notifications:
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/ca9dd4d7827d1359b18e
+
 env:
   global:
   - secure: ktfLEH4yd8/EYiIo2CcuR4TOaWOt3L0ffuFupwvADzuxeR9ElzKN9UU8dYRa/8I0lTPkk0ltHjvLb7KPPSsg1yoXx4xtHYkTQ8P/KFbx5EimFNiDo6dful8ccTIcHyb7Oj+vFJA0A97EWZ3UitqEOMw7lxr7LRKQuVPMJbdQ353FgQFcItre8rL9NP8L1dY1t/7bhhxl9qR2liq/pK/6hC2MHWdBSa0nuQakrmqXJYQABYpnPDlJ8ERwxlFETSbfRO9yVNlt0JsEtWPuSqtwmGC0ntvC8Yt7mf3nKl0fZdP/xk8NK/GvHW/I8CXMCx5xGMy/d9mAX6vNn0NezXvKXYIRiw27faJwk8H76GBoS97+ei1MQOi2F1BHcK+60F24ZBeSLkxDCNZRFfUyTSjvM4KCfLP5BoAv50abMQQQ430Zie9LfxGU7mQ4FWwZqUXiEQecmHRS94i/pCZTeknvtCQEKlx0fHlP+j8cCbBT7+T6DvjY6swiZJArKGdlg2I1QwDTh8zl/89Ll2ym/95sLYl86HuwGTFTkY+VwhwKhp5/HBfkpWq0fBk4FAC8i7FGLTGueHBgD8I2qsqBlEkTBmyY5ocDdun2fcmhY1HodBYwR8CEX+jKLzpLA5nvm1OjsBGGKuMFRra1fmmE+QiWkAleCKSm6Wsg2M61RfH8eW4=
