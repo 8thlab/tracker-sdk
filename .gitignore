@@ -6,8 +6,12 @@
 # Package Files #
 *.jar
 *.war
-*.ear
+*.eara
 
+#Gradle
+gradle
+
+#InteliJ
 target
 *.iml
 .idea
