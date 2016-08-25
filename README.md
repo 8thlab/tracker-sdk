@@ -27,6 +27,18 @@ Currently only snapshot version is available
 ## Initialization
 
 ```
-A8thLABSDK.initialize(applicationContext, appId, appToken);
+import com.a8thlab.trackersdk.A8thLABSDK
+import android.app.Application;
+
+public class MyApplication extends Application {
+
+    public void onCreate() {
+        super.onCreate();
+        String appId="APP_ID"
+        String appToken="APP_TOKEN"
+        A8thLABSDK.initialize(getApplicationContext(), appId, appToken);
+    }
+
+}
 
 ```
