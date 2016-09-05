@@ -1,52 +1,72 @@
-apply plugin: 'maven'
-apply plugin: 'signing'
 
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.3'
-    }
+allprojects{
+    group = 'com.8thlab'
+    version=getVersionName()
 }
 
-group = 'com.8thlab'
-ext.packaging = 'aar'
-version=getVersionName()
+subprojects{
+    apply plugin: 'maven'
+    apply plugin: 'signing'
 
-
-
-apply plugin: 'com.android.library'
-
-android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
-
-    defaultConfig {
-        minSdkVersion 9
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    buildscript {
+        repositories {
+            mavenCentral()
+        }
+        dependencies {
+            classpath 'com.android.tools.build:gradle:2.1.3'
         }
     }
 
+    repositories {
+        mavenCentral()
+    }   
+
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                uniqueVersion=false
+                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                    authentication(userName: getSonatypeUsername(), password: getSonatypePassword())
+                }
+
+                snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                    authentication(userName: getSonatypeUsername(), password: getSonatypePassword())
+                }
+
+                pom.project {
+                    name '8thLAB tracker SDK'
+                    packaging 'aar'
+                    description '8thLAB tracker SDK'
+                    url 'https://github.com/8thlab/tracker-sdk-android'
+
+                    scm {
+                        connection 'scm:git@github.com:8thlab/tracker-sdk-android.git'
+                        developerConnection 'scm:git@github.com:8thlab/tracker-sdk-android.git'
+                        url 'https://github.com/8thlab/tracker-sdk-android'
+                    }
+
+                    licenses {
+                        license {
+                            name 'The Apache License, Version 2.0'
+                            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id 'riomus'
+                            name 'Roman Bartusiak'
+                            email 'r.bartusiak@8thlab.com'
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.0.1'
-}
 
 def isReleaseBuild() {
     return version.contains("SNAPSHOT") == false
@@ -64,72 +84,6 @@ def getSonatypePassword(){
     return System.getenv().getOrDefault("sonatypePassword",ossSonatypePassword)
 }
 
-signing {
-    required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
-    sign configurations.archives
-}
-
-task androidJavadocs(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath +=    project.files(android.getBootClasspath().join(File.pathSeparator))
-}
-
-task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
-    classifier = 'javadoc'
-    from androidJavadocs.destinationDir
-}
-
-task androidSourcesJar(type: Jar) {
-    classifier = 'sources'
-    from android.sourceSets.main.java.srcDirs
-}
-
-artifacts {
-    archives androidSourcesJar
-    archives androidJavadocsJar
-}
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            uniqueVersion=false
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: getSonatypeUsername(), password: getSonatypePassword())
-            }
-
-            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                authentication(userName: getSonatypeUsername(), password: getSonatypePassword())
-            }
-
-            pom.project {
-                name '8thLAB tracker SDK'
-                packaging 'aar'
-                description '8thLAB tracker SDK'
-                url 'https://github.com/8thlab/tracker-sdk-android'
-
-                scm {
-                    connection 'scm:git@github.com:8thlab/tracker-sdk-android.git'
-                    developerConnection 'scm:git@github.com:8thlab/tracker-sdk-android.git'
-                    url 'https://github.com/8thlab/tracker-sdk-android'
-                }
-
-                licenses {
-                    license {
-                        name 'The Apache License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-
-                developers {
-                    developer {
-                        id 'riomus'
-                        name 'Roman Bartusiak'
-                        email 'r.bartusiak@8thlab.com'
-                    }
-                }
-            }
-        }
-    }
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }
