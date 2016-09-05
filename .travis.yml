@@ -15,9 +15,10 @@ android:
   - extra
 
 script:
-- "./gradlew clean build uploadArchives"
+- "./gradlew buildWithUpload"
 after_script:
-- "cat /home/travis/build/8thlab/tracker-sdk-android/build/outputs/lint-results-debug.xml"
+- "cat /home/travis/build/8thlab/tracker-sdk-android/lib/build/outputs/lint-results-debug.xml"
+- "cat /home/travis/build/8thlab/tracker-sdk-android/sample/build/outputs/lint-results-debug.xml"
 
 notifications:
   webhooks:

@@ -87,3 +87,7 @@ def getSonatypePassword(){
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+
+task buildWithUpload(dependsOn: ['clean', ':lib:build', ':sample:build' , ':lib:uploadArchives']) << {
+}
