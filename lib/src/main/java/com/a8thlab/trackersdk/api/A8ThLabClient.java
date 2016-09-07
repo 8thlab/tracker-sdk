@@ -36,7 +36,7 @@ public class A8ThLabClient {
 
     private void tryToDoHttpRequest(Request request) {
         try {
-            httpClient.newCall(request).execute();
+            httpClient.newCall(request).execute().close();
         } catch (IOException e) {
             Log.e("8thLAB tracker SDK","Failed to do HTTP request");
         }
