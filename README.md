@@ -1,6 +1,6 @@
 # 8thLAB Android Tracker SDK
 
-[![Build Status](https://travis-ci.org/8thlab/tracker-sdk-android.svg?branch=master)](https://travis-ci.org/8thlab/tracker-sdk-android) [![Gitter](https://badges.gitter.im/8thlab/tracker-sdk-android.svg)](https://gitter.im/8thlab/tracker-sdk-android?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Build Status](https://travis-ci.org/8thlab/tracker-sdk-android.svg?branch=master)](https://travis-ci.org/8thlab/tracker-sdk-android) [![Gitter](https://badges.gitter.im/8thlab/tracker-sdk-android.svg)](https://gitter.im/8thlab/tracker-sdk-android?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)[![Documentation Status](https://readthedocs.org/projects/8thlab-android-tracker-sdk-docs/badge/?version=latest)](http://8thlab-android-tracker-sdk-docs.readthedocs.io/en/latest/?badge=latest)
 
 LIBRARY IS UNDER HEAVY DEVELOPMENT!
 
